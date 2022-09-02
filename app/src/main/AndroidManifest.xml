@@ -17,6 +17,14 @@
             android:name=".MemoriaActivity"
             android:exported="false" />
         <activity
+            android:name=".Estadisticas"
+            android:exported="false" />
+        <activity
+            android:name=".Tresenraya"
+            android:exported="true">
+
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
