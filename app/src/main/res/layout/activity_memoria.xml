@@ -6,4 +6,193 @@
     android:layout_height="match_parent"
     tools:context=".MemoriaActivity">
 
+    <Button
+        android:id="@+id/btnNuevoMemoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Nuevo"
+        app:layout_constraintEnd_toEndOf="@+id/textViewTerminoMemoria"
+        app:layout_constraintStart_toStartOf="@+id/textViewTerminoMemoria"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTerminoMemoria" />
+
+    <Button
+        android:id="@+id/btnStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Estadísticas"
+        app:layout_constraintEnd_toEndOf="@+id/btnNuevoMemoria"
+        app:layout_constraintStart_toStartOf="@+id/btnNuevoMemoria"
+        app:layout_constraintTop_toBottomOf="@+id/btnNuevoMemoria" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Memoria"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:stretchColumns="0,1,2,3"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+
+                android:id="@+id/btnMemoria0"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+
+            <Button
+                android:id="@+id/btnMemoria1"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+
+            <Button
+                android:id="@+id/btnMemoria2"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+
+            <Button
+                android:id="@+id/btnMemoria3"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnMemoria4"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+
+            <Button
+                android:id="@+id/btnMemoria5"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+
+            <Button
+                android:id="@+id/btnMemoria6"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+
+            <Button
+                android:id="@+id/btnMemoria7"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnMemoria8"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+
+            <Button
+                android:id="@+id/btnMemoria9"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+
+            <Button
+                android:id="@+id/btnMemoria10"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+
+            <Button
+                android:id="@+id/btnMemoria11"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btnMemoria12"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+
+            <Button
+                android:id="@+id/btnMemoria13"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+
+            <Button
+                android:id="@+id/btnMemoria14"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+
+            <Button
+                android:id="@+id/btnMemoria15"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:text="-"
+                android:onClick="alPresionar"/>
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/textViewTerminoMemoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/tableLayout"
+        app:layout_constraintStart_toStartOf="@+id/tableLayout"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
