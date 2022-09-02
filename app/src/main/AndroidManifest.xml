@@ -17,6 +17,9 @@
             android:name=".MemoriaActivity"
             android:exported="false" />
         <activity
+            android:name=".StaticsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Estadisticas"
             android:exported="false" />
         <activity

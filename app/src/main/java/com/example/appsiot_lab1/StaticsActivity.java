@@ -10,9 +10,12 @@ import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class StaticsActivity extends AppCompatActivity {
+
+    private ArrayList<String> listaduracion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,29 +27,26 @@ public class StaticsActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long tInicio = System.currentTimeMillis();
                 Intent intent = new Intent(StaticsActivity.this,MemoriaActivity.class);
+                intent.putExtra("lista1",listaduracion);
                 startActivity(intent);
-
-                long tFinal = System.currentTimeMillis();
-                long tDiferencia = tFinal - tInicio;
-                double tseg = tDiferencia/1000.0;
 
             }
         });
 
-
-
-
         Intent intent = getIntent();
-        double[] listaduracion = intent.getDoubleArrayExtra("lista");
-
-        Integer duracion = intent.getIntExtra("duracion",0);
-        Integer numeroJuego = intent.getIntExtra("juego",0);
-        String evento = intent.getStringExtra("evento");
-        TextView detalles = findViewById(R.id.textViewDetalles);
+        listaduracion = intent.getStringArrayListExtra("lista");
         String texto= "";
-        texto = texto + "Juego "+numeroJuego+" : "+ evento + " en "+ duracion+" minutos";
+        for(int i = 0; i<listaduracion.size(); i++){
+            String duracion=listaduracion.get(i);
+            if(!duracion.equals("0")){
+                texto = texto + "Juego "+ (i+1) +" : Terminó en "+ duracion+" minutos";
+            }else{
+                texto = texto + "Canceló                                             ";
+            }
+        }
+        TextView detalles = findViewById(R.id.textViewDetalles);
+        detalles.setText(texto);
 
     }
 }

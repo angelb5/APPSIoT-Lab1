@@ -2,6 +2,7 @@ package com.example.appsiot_lab1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -21,22 +22,49 @@ public class MemoriaActivity extends AppCompatActivity {
     private Button ultimoBtn;
     private ArrayList<Button> btnsABorrar = new ArrayList<>();
     private ArrayList<Button> lockedBtns = new ArrayList<>();
+    private ArrayList<String> lista = new ArrayList<>();
+    private int pares;
+    private int primera=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memoria);
 
+
         crearNuevoJuego();
+        primera=0;
         findViewById(R.id.btnNuevoMemoria).setOnClickListener(view -> crearNuevoJuego());
 
+
+
+        Button button = findViewById(R.id.btnStats);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MemoriaActivity.this,StaticsActivity.class);
+                intent.putExtra("lista",lista);
+                startActivity(intent);
+            }
+        });
     }
 
+
     public void crearNuevoJuego(){
+        Intent intent = getIntent();
+
         juegoMemoria = new Memoria();
         btnsABorrar = new ArrayList<>();
         lockedBtns = new ArrayList<>();
         ultimoBtn = null;
+        Log.d("msg",String.valueOf(pares));
+
+        if(primera !=1){
+            if(pares!=8){
+                lista.add("0");
+            }
+        }
+        ((TextView) findViewById(R.id.textViewTerminoMemoria)).setText("");
         flashBtns();
     }
 
@@ -72,11 +100,13 @@ public class MemoriaActivity extends AppCompatActivity {
                     ultimoBtn=null;
                     juegoMemoria.agregarParAdivinado();
                     Log.d("msgAS","Pares adivinados: "+ String.valueOf(juegoMemoria.getParesAdivinados())+" Ultimo par adivinado: "+getBtnText(btnPresionado));
+                    pares = juegoMemoria.getParesAdivinados();
                     if(juegoMemoria.getParesAdivinados()==8){
                         long tFinal = System.currentTimeMillis();
                         long tDif = tFinal - juegoMemoria.gettInicio();
                         double tMinutos = tDif/60000.0;
-                        ((TextView) findViewById(R.id.textViewTerminoMemoria)).setText("Terminó en "+tMinutos+ " minutos");
+                        ((TextView) findViewById(R.id.textViewTerminoMemoria)).setText("Terminó en "+String.format("%.2f",tMinutos)+ " minutos");
+                        lista.add(String.format("%.2f",tMinutos));
                     }
                 }else{
                     btnsABorrar.add(ultimoBtn);
