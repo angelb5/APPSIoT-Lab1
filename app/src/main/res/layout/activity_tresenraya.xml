@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Tresenraya">
+
+    <Button
+        android:id="@+id/casilla1"
+        android:layout_width="65dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="60dp"
+        android:onClick="marcarCasilla"
+        android:text="-"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Tres en raya"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/casilla0"
+        android:layout_width="65dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="32dp"
+        android:onClick="marcarCasilla"
+        android:text="-"
+        app:layout_constraintEnd_toStartOf="@+id/casilla4"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/casilla3"
+        android:layout_width="65dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="32dp"
+        android:onClick="marcarCasilla"
+        android:text="-"
+        app:layout_constraintEnd_toStartOf="@+id/casilla4"
+        app:layout_constraintTop_toBottomOf="@+id/casilla0" />
+
+    <Button
+        android:id="@+id/casilla6"
+        android:layout_width="65dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="32dp"
+        android:onClick="marcarCasilla"
+        android:text="-"
+        app:layout_constraintEnd_toStartOf="@+id/casilla4"
+        app:layout_constraintTop_toBottomOf="@+id/casilla3" />
+
+    <Button
+        android:id="@+id/casilla4"
+        android:layout_width="65dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="28dp"
+        android:onClick="marcarCasilla"
+        android:text="-"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/casilla1" />
+
+    <Button
+        android:id="@+id/casilla7"
+        android:layout_width="65dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="28dp"
+        android:onClick="marcarCasilla"
+        android:text="-"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/casilla4" />
+
+    <Button
+        android:id="@+id/casilla2"
+        android:layout_width="65dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="60dp"
+        android:onClick="marcarCasilla"
+        android:text="-"
+        app:layout_constraintStart_toEndOf="@+id/casilla4"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/casilla5"
+        android:layout_width="65dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
+        android:onClick="marcarCasilla"
+        android:text="-"
+        app:layout_constraintStart_toEndOf="@+id/casilla4"
+        app:layout_constraintTop_toBottomOf="@+id/casilla2" />
+
+    <Button
+        android:id="@+id/casilla8"
+        android:layout_width="65dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
+        android:onClick="marcarCasilla"
+        android:text="-"
+        app:layout_constraintStart_toEndOf="@+id/casilla4"
+        app:layout_constraintTop_toBottomOf="@+id/casilla5" />
+
+    <Button
+        android:id="@+id/buttonNuevo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:onClick="nuevoJuego"
+        android:text="Nuevo"
+        app:layout_constraintBottom_toTopOf="@+id/button11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp"
+        android:onClick="mostrarEstadisticas"
+        android:text="Estadisticas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
