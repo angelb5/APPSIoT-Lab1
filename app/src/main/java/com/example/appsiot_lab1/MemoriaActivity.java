@@ -18,8 +18,9 @@ import java.util.Arrays;
 public class MemoriaActivity extends AppCompatActivity {
 
     private Memoria juegoMemoria;
-    private String ultimoValor;
     private Button ultimoBtn;
+    private ArrayList<Button> btnsABorrar = new ArrayList<>();
+    private ArrayList<Button> lockedBtns = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,8 @@ public class MemoriaActivity extends AppCompatActivity {
 
     public void crearNuevoJuego(){
         juegoMemoria = new Memoria();
-        ultimoValor = "";
+        btnsABorrar = new ArrayList<>();
+        lockedBtns = new ArrayList<>();
         ultimoBtn = null;
         flashBtns();
     }
@@ -55,40 +57,50 @@ public class MemoriaActivity extends AppCompatActivity {
     public void alPresionar(View view){
         assert view instanceof Button;
         Button btnPresionado = (Button) view;
-        mostrarValorBtn(btnPresionado);
-        if(ultimoBtn==null){
-            ultimoBtn=btnPresionado;
-            ultimoValor= btnPresionado.getText().toString();
-            Log.d("msgAS","El ultimo valor fue "+ultimoValor);
-        }else if(btnPresionado!=ultimoBtn){
-            if(btnPresionado.getText().toString().equals(ultimoValor)){
-                juegoMemoria.agregarParAdivinado();
-                Log.d("msgAS",String.valueOf(juegoMemoria.getParesAdivinados()));
-                if(juegoMemoria.getParesAdivinados()==8){
-                    long tFinal = System.currentTimeMillis();
-                    long tDif = tFinal - juegoMemoria.gettInicio();
-                    double tMinutos = tDif/60000.0;
-                    ((TextView) findViewById(R.id.textViewTerminoMemoria)).setText("Termino en "+tMinutos+ " minutos");
-                }
-                ultimoBtn=null;
-                ultimoValor="";
-            }else{
-                final ArrayList<Button> btnsABorrar = new ArrayList<>();
-                btnsABorrar.add(ultimoBtn);
-                btnsABorrar.add(btnPresionado);
-                ultimoBtn=null;
-                ultimoValor="";
-                Handler handler =new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        for(Button btn : btnsABorrar){
-                            btn.setText("-");
-                        }
+        if(!lockedBtns.contains(btnPresionado)){
+            mostrarValorBtn(btnPresionado);
+            Log.d("msgAS","Presionado: "+ getBtnText(btnPresionado));
+            if(ultimoBtn==null){
+                ultimoBtn=btnPresionado;
+            }else if(btnPresionado!=ultimoBtn){
+                if(getBtnText(btnPresionado).equals(getBtnText(ultimoBtn))){
+                    Log.d("msgAS", "Par: "+getBtnText(ultimoBtn)+" y "+ getBtnText(btnPresionado));
+                    lockedBtns.add(ultimoBtn);
+                    lockedBtns.add(btnPresionado);
+                    btnsABorrar.remove(ultimoBtn);
+                    btnsABorrar.remove(btnPresionado);
+                    ultimoBtn=null;
+                    juegoMemoria.agregarParAdivinado();
+                    Log.d("msgAS","Pares adivinados: "+ String.valueOf(juegoMemoria.getParesAdivinados())+" Ultimo par adivinado: "+getBtnText(btnPresionado));
+                    if(juegoMemoria.getParesAdivinados()==8){
+                        long tFinal = System.currentTimeMillis();
+                        long tDif = tFinal - juegoMemoria.gettInicio();
+                        double tMinutos = tDif/60000.0;
+                        ((TextView) findViewById(R.id.textViewTerminoMemoria)).setText("Terminó en "+tMinutos+ " minutos");
                     }
-                }, 300);
+                }else{
+                    btnsABorrar.add(ultimoBtn);
+                    btnsABorrar.add(btnPresionado);
+                    ultimoBtn=null;
+                    Handler handler =new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            for(Button btn : btnsABorrar){
+                                if (!lockedBtns.contains(btn)){
+                                    Log.d("msgAS","Borrando btn "+getBtnText(btn));
+                                    btn.setText("-");
+                                }
+                            }
+                            for(Button btn : lockedBtns){
+                                if(btn.getText().equals("-")){
+                                    mostrarValorBtn(btn);
+                                }
+                            }
+                        }
+                    }, 300);
+                }
             }
-
         }
     }
 
@@ -143,6 +155,45 @@ public class MemoriaActivity extends AppCompatActivity {
                 btn.setText(juegoMemoria.getValores()[15]);
                 break;
 
+        }
+    }
+
+    private String getBtnText(Button btn){
+        switch (btn.getId()){
+            case (R.id.btnMemoria0):
+                return juegoMemoria.getValores()[0];
+            case (R.id.btnMemoria1):
+                return juegoMemoria.getValores()[1];
+            case (R.id.btnMemoria2):
+                return juegoMemoria.getValores()[2];
+            case (R.id.btnMemoria3):
+                return juegoMemoria.getValores()[3];
+            case (R.id.btnMemoria4):
+                return juegoMemoria.getValores()[4];
+            case (R.id.btnMemoria5):
+                return juegoMemoria.getValores()[5];
+            case (R.id.btnMemoria6):
+                return juegoMemoria.getValores()[6];
+            case (R.id.btnMemoria7):
+                return juegoMemoria.getValores()[7];
+            case (R.id.btnMemoria8):
+                return juegoMemoria.getValores()[8];
+            case (R.id.btnMemoria9):
+                return juegoMemoria.getValores()[9];
+            case (R.id.btnMemoria10):
+                return juegoMemoria.getValores()[10];
+            case (R.id.btnMemoria11):
+                return juegoMemoria.getValores()[11];
+            case (R.id.btnMemoria12):
+                return juegoMemoria.getValores()[12];
+            case (R.id.btnMemoria13):
+                return juegoMemoria.getValores()[13];
+            case (R.id.btnMemoria14):
+                return juegoMemoria.getValores()[14];
+            case (R.id.btnMemoria15):
+                return juegoMemoria.getValores()[15];
+            default:
+                return "";
         }
     }
 
