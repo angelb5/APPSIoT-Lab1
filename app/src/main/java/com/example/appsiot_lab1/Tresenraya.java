@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class Tresenraya extends AppCompatActivity {
 
     @Override
@@ -35,6 +37,8 @@ public class Tresenraya extends AppCompatActivity {
     private int contador = 0;
     // si llega a 9 y no ha ganado nadie, se resetea el juego
 
+    private ArrayList<String> estadisticas = new ArrayList<String>();
+
     public void reiniciar(){
         contador = 0;
         tableroActual = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1};
@@ -47,7 +51,7 @@ public class Tresenraya extends AppCompatActivity {
         boton = findViewById(R.id.casilla2);
         boton.setText("-");
         boton = findViewById(R.id.casilla3);
-        boton.setText("-");;
+        boton.setText("-");
         boton = findViewById(R.id.casilla4);
         boton.setText("-");
         boton = findViewById(R.id.casilla5);
@@ -60,8 +64,14 @@ public class Tresenraya extends AppCompatActivity {
         boton.setText("-");
     }
 
+    // funciones para los elementos view
+
     public void nuevoJuego(View view) {
         this.reiniciar();
+
+        // se guarda la estadistica
+        int numeroJuego = estadisticas.size()+1; // se le suma 1 para que comienze en 1 y no en 0
+        estadisticas.add("Juego "+String.valueOf(numeroJuego)+" - Cancelo");
     }
 
     public void marcarCasilla(View view){
@@ -122,7 +132,11 @@ public class Tresenraya extends AppCompatActivity {
                     if (tableroActual[posicionGanadora[0]] == 1 && tableroActual[posicionGanadora[1]] == 1 && tableroActual[posicionGanadora[2]] == 1) {
                         Log.d("msg", "gano jugador 1");
                         Toast.makeText(this, "Gano X", Toast.LENGTH_SHORT).show();
-                        // TODO se guarda la estadistica
+
+                        // se guarda la estadistica
+                        int numeroJuego = estadisticas.size()+1; // se le suma 1 para que comienze en 1 y no en 0
+                        estadisticas.add("Juego "+String.valueOf(numeroJuego)+" - Gano X");
+                        Log.d("msg", String.valueOf(estadisticas));
 
                         // se reinicia el juego
                         this.reiniciar();
@@ -143,7 +157,10 @@ public class Tresenraya extends AppCompatActivity {
                     if (tableroActual[posicionGanadora[0]] == 0 && tableroActual[posicionGanadora[1]] == 0 && tableroActual[posicionGanadora[2]] == 0) {
                         Log.d("msg", "gano jugador 2");
                         Toast.makeText(this, "Gano O", Toast.LENGTH_SHORT).show();
-                        // TODO se guarda la estadistica
+
+                        // se guarda la estadistica
+                        int numeroJuego = estadisticas.size()+1; // se le suma 1 para que comienze en 1 y no en 0
+                        estadisticas.add("Juego "+String.valueOf(numeroJuego)+" - Gano O");
 
                         // se reinicia el juego
                         this.reiniciar();
@@ -156,7 +173,10 @@ public class Tresenraya extends AppCompatActivity {
             Log.d("msg", String.valueOf(contador));
             if(contador==9){
                 Toast.makeText(this, "Empate", Toast.LENGTH_SHORT).show();
-                // TODO se guarda la estadistica
+
+                // se guarda la estadistica
+                int numeroJuego = estadisticas.size()+1; // se le suma 1 para que comienze en 1 y no en 0
+                estadisticas.add("Juego "+String.valueOf(numeroJuego)+" - Empate");
 
                 // se reinicia el juego
                 this.reiniciar();
@@ -168,8 +188,10 @@ public class Tresenraya extends AppCompatActivity {
 
     public void mostrarEstadisticas (View view){
 
+        this.reiniciar();
+
         Intent intent = new Intent(this, Estadisticas.class);
-        //intent.putExtra("nombre", nombre);
+        intent.putExtra("estadisticas", estadisticas);
         startActivity( intent );
 
 

@@ -23,4 +23,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void irTresenraya(View view){
+        Intent intent = new Intent(this, Tresenraya.class);
+        startActivity( intent );
+    }
+
+
 }

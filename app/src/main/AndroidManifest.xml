@@ -15,16 +15,21 @@
         tools:targetApi="31">
         <activity
             android:name=".MemoriaActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".StaticsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MemoriaActivity"/>
+
         <activity
             android:name=".Estadisticas"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".Tresenraya"
-            android:exported="true">
+            android:exported="true"
+            android:parentActivityName=".Estadisticas">
 
         </activity>
         <activity
