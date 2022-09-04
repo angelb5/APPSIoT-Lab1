@@ -25,6 +25,9 @@ public class Tresenraya extends AppCompatActivity {
     // 1 -> jugador 1 (cruz)
     // 2 -> jugador 2 (circulo)
 
+    //0 1 2
+    //3 4 5
+    //6 7 8
     private int[][] posicionesGanadoras = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8},
             {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
             {0, 4, 8}, {2, 4, 6}};
@@ -65,6 +68,7 @@ public class Tresenraya extends AppCompatActivity {
         boton.setText("-");
         boton = findViewById(R.id.casilla8);
         boton.setText("-");
+        ((TextView) findViewById(R.id.textViewResultadoTresEnRaya)).setText("");
     }
 
     // funciones para los elementos view
@@ -146,7 +150,6 @@ public class Tresenraya extends AppCompatActivity {
                         estado="fin";
                     }
                 }
-
             } else {
                 // jugador cruz
 
@@ -172,7 +175,7 @@ public class Tresenraya extends AppCompatActivity {
             // se verifica si se acabaron las casillas
             contador++;
             Log.d("msg", String.valueOf(contador));
-            if(contador==9){
+            if(contador==9 && estado.equals("jugando")){
                 ((TextView) findViewById(R.id.textViewResultadoTresEnRaya)).setText("Empate");
 
                 // se guarda la estadistica
