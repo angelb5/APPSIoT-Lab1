@@ -122,7 +122,7 @@ public class Tresenraya extends AppCompatActivity {
         }
         //Log.d("msg", String.valueOf(casilla));
 
-        if(tableroActual[casilla] == -1){
+        if(tableroActual[casilla] == -1 && estado.equals("jugando")){
             // si la casilla aun no ha sido seleccionada
 
             // se actualizan las casillas
