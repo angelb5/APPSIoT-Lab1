@@ -263,6 +263,7 @@ public class MemoriaActivity extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
+        primera=1;
         crearNuevoJuego();
         super.onRestart();
     }
