@@ -25,7 +25,7 @@
         <activity
             android:name=".Estadisticas"
             android:exported="false"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".Tresenraya"/>
         <activity
             android:name=".Tresenraya"
             android:exported="true"

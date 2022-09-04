@@ -20,10 +20,9 @@ public class MemoriaActivity extends AppCompatActivity {
 
     private Memoria juegoMemoria;
     private Button ultimoBtn;
-    private ArrayList<Button> btnsABorrar = new ArrayList<>();
     private ArrayList<Button> lockedBtns = new ArrayList<>();
     private ArrayList<String> lista = new ArrayList<>();
-    private int pares;
+    private String estado = "carga";
     private int primera=1;
 
     @Override
@@ -31,12 +30,9 @@ public class MemoriaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memoria);
 
-
         crearNuevoJuego();
         primera=0;
         findViewById(R.id.btnNuevoMemoria).setOnClickListener(view -> crearNuevoJuego());
-
-
 
         Button button = findViewById(R.id.btnStats);
         button.setOnClickListener(new View.OnClickListener() {
@@ -51,16 +47,13 @@ public class MemoriaActivity extends AppCompatActivity {
 
 
     public void crearNuevoJuego(){
-        Intent intent = getIntent();
-
+        estado="carga";
         juegoMemoria = new Memoria();
-        btnsABorrar = new ArrayList<>();
         lockedBtns = new ArrayList<>();
         ultimoBtn = null;
-        Log.d("msg",String.valueOf(pares));
 
         if(primera !=1){
-            if(pares!=8){
+            if(juegoMemoria.getParesAdivinados()!=8){
                 lista.add("0");
             }
         }
@@ -78,6 +71,8 @@ public class MemoriaActivity extends AppCompatActivity {
             @Override
             public void run() {
                 textoABtns(array);
+                estado="jugando";
+                juegoMemoria.iniciarJuego();
             }
         }, 1000);
     }
@@ -85,8 +80,8 @@ public class MemoriaActivity extends AppCompatActivity {
     public void alPresionar(View view){
         assert view instanceof Button;
         Button btnPresionado = (Button) view;
-        if(!lockedBtns.contains(btnPresionado)){
-            mostrarValorBtn(btnPresionado);
+        if(!lockedBtns.contains(btnPresionado) && estado.equals("jugando")){
+            revelarValorBtn(btnPresionado);
             Log.d("msgAS","Presionado: "+ getBtnText(btnPresionado));
             if(ultimoBtn==null){
                 ultimoBtn=btnPresionado;
@@ -95,12 +90,8 @@ public class MemoriaActivity extends AppCompatActivity {
                     Log.d("msgAS", "Par: "+getBtnText(ultimoBtn)+" y "+ getBtnText(btnPresionado));
                     lockedBtns.add(ultimoBtn);
                     lockedBtns.add(btnPresionado);
-                    btnsABorrar.remove(ultimoBtn);
-                    btnsABorrar.remove(btnPresionado);
-                    ultimoBtn=null;
-                    juegoMemoria.agregarParAdivinado();
+                    juegoMemoria.actualizarPares(getBtnIndex(ultimoBtn),getBtnIndex(btnPresionado));
                     Log.d("msgAS","Pares adivinados: "+ String.valueOf(juegoMemoria.getParesAdivinados())+" Ultimo par adivinado: "+getBtnText(btnPresionado));
-                    pares = juegoMemoria.getParesAdivinados();
                     if(juegoMemoria.getParesAdivinados()==8){
                         long tFinal = System.currentTimeMillis();
                         long tDif = tFinal - juegoMemoria.gettInicio();
@@ -108,33 +99,20 @@ public class MemoriaActivity extends AppCompatActivity {
                         ((TextView) findViewById(R.id.textViewTerminoMemoria)).setText("Terminó en "+String.format("%.2f",tMinutos)+ " minutos");
                         lista.add(String.format("%.2f",tMinutos));
                     }
-                }else{
-                    btnsABorrar.add(ultimoBtn);
-                    btnsABorrar.add(btnPresionado);
-                    ultimoBtn=null;
-                    Handler handler =new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            for(Button btn : btnsABorrar){
-                                if (!lockedBtns.contains(btn)){
-                                    Log.d("msgAS","Borrando btn "+getBtnText(btn));
-                                    btn.setText("-");
-                                }
-                            }
-                            for(Button btn : lockedBtns){
-                                if(btn.getText().equals("-")){
-                                    mostrarValorBtn(btn);
-                                }
-                            }
-                        }
-                    }, 300);
                 }
+                ultimoBtn=null;
+                Handler handler =new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        textoABtns(juegoMemoria.getValoresMostrados());
+                    }
+                }, 300);
             }
         }
     }
 
-    public void mostrarValorBtn(Button btn){
+    public void revelarValorBtn(Button btn){
         switch (btn.getId()){
             case (R.id.btnMemoria0):
                 btn.setText(juegoMemoria.getValores()[0]);
@@ -227,6 +205,43 @@ public class MemoriaActivity extends AppCompatActivity {
         }
     }
 
+    private int getBtnIndex(Button btn){
+        switch (btn.getId()){
+            case (R.id.btnMemoria1):
+                return 1;
+            case (R.id.btnMemoria2):
+                return 2;
+            case (R.id.btnMemoria3):
+                return 3;
+            case (R.id.btnMemoria4):
+                return 4;
+            case (R.id.btnMemoria5):
+                return 5;
+            case (R.id.btnMemoria6):
+                return 6;
+            case (R.id.btnMemoria7):
+                return 7;
+            case (R.id.btnMemoria8):
+                return 8;
+            case (R.id.btnMemoria9):
+                return 9;
+            case (R.id.btnMemoria10):
+                return 10;
+            case (R.id.btnMemoria11):
+                return 11;
+            case (R.id.btnMemoria12):
+                return 12;
+            case (R.id.btnMemoria13):
+                return 13;
+            case (R.id.btnMemoria14):
+                return 14;
+            case (R.id.btnMemoria15):
+                return 15;
+            default:
+                return 0;
+        }
+    }
+
     public void textoABtns(String[] textos){
         ((Button)  findViewById(R.id.btnMemoria0)).setText(textos[0]);
         ((Button)  findViewById(R.id.btnMemoria1)).setText(textos[1]);
@@ -244,7 +259,11 @@ public class MemoriaActivity extends AppCompatActivity {
         ((Button)  findViewById(R.id.btnMemoria13)).setText(textos[13]);
         ((Button)  findViewById(R.id.btnMemoria14)).setText(textos[14]);
         ((Button)  findViewById(R.id.btnMemoria15)).setText(textos[15]);
-
     }
 
+    @Override
+    protected void onRestart() {
+        crearNuevoJuego();
+        super.onRestart();
+    }
 }

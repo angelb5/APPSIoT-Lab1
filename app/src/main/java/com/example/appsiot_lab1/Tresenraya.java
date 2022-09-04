@@ -39,10 +39,13 @@ public class Tresenraya extends AppCompatActivity {
 
     private ArrayList<String> estadisticas = new ArrayList<String>();
 
+    private String estado="jugando";
+
     public void reiniciar(){
         contador = 0;
         tableroActual = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1};
         jugador = 1;
+        estado="jugando";
 
         Button boton = findViewById(R.id.casilla0);
         boton.setText("-");
@@ -67,11 +70,16 @@ public class Tresenraya extends AppCompatActivity {
     // funciones para los elementos view
 
     public void nuevoJuego(View view) {
-        this.reiniciar();
 
-        // se guarda la estadistica
-        int numeroJuego = estadisticas.size()+1; // se le suma 1 para que comienze en 1 y no en 0
-        estadisticas.add("Juego "+String.valueOf(numeroJuego)+" - Cancelo");
+        if(estado.equals("jugando")){
+            // se guarda la estadistica
+            int numeroJuego = estadisticas.size()+1; // se le suma 1 para que comienze en 1 y no en 0
+            estadisticas.add("Juego "+String.valueOf(numeroJuego)+" - Cancelo");
+        }
+
+        ((TextView) findViewById(R.id.textViewResultadoTresEnRaya)).setText("");
+
+        this.reiniciar();
     }
 
     public void marcarCasilla(View view){
@@ -130,16 +138,12 @@ public class Tresenraya extends AppCompatActivity {
                 // se verifica si gano
                 for (int[] posicionGanadora : posicionesGanadoras) {
                     if (tableroActual[posicionGanadora[0]] == 1 && tableroActual[posicionGanadora[1]] == 1 && tableroActual[posicionGanadora[2]] == 1) {
-                        Log.d("msg", "gano jugador 1");
-                        Toast.makeText(this, "Gano X", Toast.LENGTH_SHORT).show();
+                        ((TextView) findViewById(R.id.textViewResultadoTresEnRaya)).setText("Ganó X");
 
                         // se guarda la estadistica
                         int numeroJuego = estadisticas.size()+1; // se le suma 1 para que comienze en 1 y no en 0
                         estadisticas.add("Juego "+String.valueOf(numeroJuego)+" - Gano X");
-                        Log.d("msg", String.valueOf(estadisticas));
-
-                        // se reinicia el juego
-                        this.reiniciar();
+                        estado="fin";
                     }
                 }
 
@@ -155,15 +159,12 @@ public class Tresenraya extends AppCompatActivity {
                 // se verifica si gano
                 for (int[] posicionGanadora : posicionesGanadoras) {
                     if (tableroActual[posicionGanadora[0]] == 0 && tableroActual[posicionGanadora[1]] == 0 && tableroActual[posicionGanadora[2]] == 0) {
-                        Log.d("msg", "gano jugador 2");
-                        Toast.makeText(this, "Gano O", Toast.LENGTH_SHORT).show();
+                        ((TextView) findViewById(R.id.textViewResultadoTresEnRaya)).setText("Ganó O");
 
                         // se guarda la estadistica
                         int numeroJuego = estadisticas.size()+1; // se le suma 1 para que comienze en 1 y no en 0
                         estadisticas.add("Juego "+String.valueOf(numeroJuego)+" - Gano O");
-
-                        // se reinicia el juego
-                        this.reiniciar();
+                        estado="fin";
                     }
                 }
             }
@@ -172,28 +173,25 @@ public class Tresenraya extends AppCompatActivity {
             contador++;
             Log.d("msg", String.valueOf(contador));
             if(contador==9){
-                Toast.makeText(this, "Empate", Toast.LENGTH_SHORT).show();
+                ((TextView) findViewById(R.id.textViewResultadoTresEnRaya)).setText("Empate");
 
                 // se guarda la estadistica
                 int numeroJuego = estadisticas.size()+1; // se le suma 1 para que comienze en 1 y no en 0
                 estadisticas.add("Juego "+String.valueOf(numeroJuego)+" - Empate");
-
-                // se reinicia el juego
-                this.reiniciar();
+                estado="fin";
             }
-
         }
+    }
 
+    @Override
+    protected void onRestart() {
+        reiniciar();
+        super.onRestart();
     }
 
     public void mostrarEstadisticas (View view){
-
-        this.reiniciar();
-
         Intent intent = new Intent(this, Estadisticas.class);
         intent.putExtra("estadisticas", estadisticas);
         startActivity( intent );
-
-
     }
 }

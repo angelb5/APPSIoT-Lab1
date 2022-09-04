@@ -27,10 +27,7 @@ public class StaticsActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(StaticsActivity.this,MemoriaActivity.class);
-                intent.putExtra("lista1",listaduracion);
-                startActivity(intent);
-
+                finish();
             }
         });
 
@@ -40,13 +37,19 @@ public class StaticsActivity extends AppCompatActivity {
         for(int i = 0; i<listaduracion.size(); i++){
             String duracion=listaduracion.get(i);
             if(!duracion.equals("0")){
-                texto = texto + "Juego "+ (i+1) +" : Terminó en "+ duracion+" minutos";
+                texto = texto + "Juego "+ (i+1) +" : Terminó en "+ duracion+" minutos\n";
             }else{
-                texto = texto + "Canceló                                             ";
+                texto = texto + "Canceló\n";
             }
         }
         TextView detalles = findViewById(R.id.textViewDetalles);
         detalles.setText(texto);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 }
